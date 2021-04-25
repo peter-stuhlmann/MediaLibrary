@@ -28,7 +28,10 @@ export default function Header(props) {
           ))}
         </Nav>
       </div>
-      <MobileMenuButton onClick={() => setOpen(!open)}>Menu</MobileMenuButton>
+      <Flex>
+        <Login>Login</Login>
+        <MobileMenuButton onClick={() => setOpen(!open)}>Menu</MobileMenuButton>
+      </Flex>
     </StyledHeader>
   );
 }
@@ -48,6 +51,10 @@ const StyledHeader = styled.header`
   letter-spacing: 2px;
   z-index: 10;
 
+  @media (max-width: 950px) {
+    padding: 10px 15px;
+  }
+
   div {
     display: flex;
     align-items: center;
@@ -62,7 +69,7 @@ const Nav = styled.nav`
   margin-left: 25px;
   display: flex;
 
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     position: absolute;
     flex-direction: column;
     align-items: center;
@@ -90,7 +97,7 @@ const NavItem = styled(Link)`
   margin-right: 25px;
   padding: 6px 12px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 950px) {
     margin-right: 0;
     font-size: 20px;
   }
@@ -122,7 +129,7 @@ const NavItem = styled(Link)`
       transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
       width: auto;
 
-      @media (max-width: 768px) {
+      @media (max-width: 950px) {
         display: none;
       }
     }
@@ -134,19 +141,43 @@ const NavItem = styled(Link)`
   }
 `;
 
-const MobileMenuButton = styled.button`
-  border: 1px solid #fff;
+const Flex = styled.div`
+  display: flex;
+`;
+
+const Login = styled.button`
+  border: 1px solid #f9f9f9;
   border-radius: 4px;
   padding: 10px 17px;
   color: #fff;
-  background-color: #090b13;
+  background-color: rgba(0, 0, 0, 0.6);
   outline: none;
   cursor: pointer;
-  transition: 0.1s;
+  transition: 0.2s ease-out;
   text-transform: uppercase;
   letter-spacing: 1px;
 
-  @media (min-width: 769px) {
+  &:hover {
+    @media (min-width: 951px) {
+      background-color: #f9f9f9;
+      color: #090b13;
+    }
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  padding: 10px 17px;
+  margin-left: 14px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media (min-width: 951px) {
     display: none;
   }
 `;
