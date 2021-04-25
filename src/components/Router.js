@@ -1,13 +1,17 @@
 import React, { lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-const Home = lazy(() => import('./Home'));
+const Start = lazy(() => import('./Start'));
 const NotFound = lazy(() => import('./NotFound'));
 
-export default function Router() {
+export default function Router(props) {
+  const { content } = props;
+
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/">
+        <Start content={content} />
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
