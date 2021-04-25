@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -7,21 +7,28 @@ import nav from '../data/nav';
 export default function Header(props) {
   const { content } = props;
 
+  const [open, setOpen] = useState(false);
+
   return (
     <StyledHeader>
       <div>
         <Link to="/">
           <Logo src={content.logo} alt="Logo" />
         </Link>
-        <Nav>
+        <Nav open={open}>
           {nav.map((navItem) => (
-            <NavItem key={navItem.href} to={navItem.href} icon={navItem.icon}>
+            <NavItem
+              key={navItem.href}
+              to={navItem.href}
+              icon={navItem.icon}
+              onClick={() => setOpen(false)}
+            >
               <span>{navItem.linkText}</span>
             </NavItem>
           ))}
         </Nav>
       </div>
-      <div></div>
+      <MobileMenuButton onClick={() => setOpen(!open)}>Menu</MobileMenuButton>
     </StyledHeader>
   );
 }
@@ -54,6 +61,22 @@ const Logo = styled.img`
 const Nav = styled.nav`
   margin-left: 25px;
   display: flex;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: ${(props) => (props.open ? '0' : '-100vw')};
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #090b13;
+    padding-top: 20px;
+    transition: 0.3s ease-out;
+    z-index: -1;
+  }
 `;
 
 const NavItem = styled(Link)`
@@ -66,6 +89,11 @@ const NavItem = styled(Link)`
   position: relative;
   margin-right: 25px;
   padding: 6px 12px;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    font-size: 20px;
+  }
 
   &:before {
     display: block;
@@ -93,11 +121,32 @@ const NavItem = styled(Link)`
       transform: scaleX(0);
       transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
       width: auto;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
   &:hover span:before {
     transform: scaleX(1);
     opacity: 1;
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 10px 17px;
+  color: #fff;
+  background-color: #090b13;
+  outline: none;
+  cursor: pointer;
+  transition: 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media (min-width: 769px) {
+    display: none;
   }
 `;
