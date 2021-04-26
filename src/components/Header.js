@@ -9,6 +9,7 @@ import {
   selectUserName,
   selectUserPhoto,
   setUserLoginDetails,
+  setSignOutState,
 } from '../features/userSlice';
 
 export default function Header(props) {
@@ -21,14 +22,23 @@ export default function Header(props) {
   const userPhoto = useSelector(selectUserPhoto);
 
   const handleAuth = () => {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        alert.apply(error.message);
-      });
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user);
+        })
+        .catch((error) => {
+          alert.apply(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+        })
+        .catch((error) => alert(error.message));
+    }
   };
 
   const setUser = (user) => {
@@ -63,7 +73,12 @@ export default function Header(props) {
         {!userName ? (
           <Login onClick={handleAuth}>Login</Login>
         ) : (
-          <UserImg src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImg src={userPhoto} alt={userName} />
+            <Dropdown>
+              <span onClick={handleAuth}>Sign out</span>
+            </Dropdown>
+          </SignOut>
         )}
         <MobileMenuButton onClick={() => setOpen(!open)}>Menu</MobileMenuButton>
       </Flex>
@@ -221,4 +236,26 @@ const UserImg = styled.img`
   height: 50px;
   width: 50px;
   border-radius: 50%;
+`;
+
+const Dropdown = styled.div`
+  position: absolute;
+  top: 60px;
+  right: 25px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid #f9f9f9;
+  box-shadow: 5px 5px 15px 5px #000;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  &:hover ${Dropdown} {
+    visibility: visible;
+    opacity: 1;
+    transition: 1s;
+  }
 `;
