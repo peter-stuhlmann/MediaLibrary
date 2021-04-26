@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import ImageSlider from './ImageSlider';
 
 export default function Home(props) {
   const { content } = props;
 
   return (
     <Container backgroundImage={content.home.images.background.src}>
-      <div>Home</div>
+      <ImageSlider />
     </Container>
   );
 }
@@ -18,6 +19,7 @@ const Container = styled.main`
   top: 70px;
   padding: 15px;
   box-sizing: border-box;
+  overflow-x: hidden;
 
   &:after {
     background-image: url(${(props) => props.backgroundImage});
