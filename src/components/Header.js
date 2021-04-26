@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import nav from '../data/nav';
+import { auth, provider } from '../firebase';
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserLoginDetails,
+} from '../features/userSlice';
 
 export default function Header(props) {
   const { content } = props;
 
   const [open, setOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+
+  const handleAuth = () => {
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        setUser(result.user);
+      })
+      .catch((error) => {
+        alert.apply(error.message);
+      });
+  };
+
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
   return (
     <StyledHeader>
       <div>
@@ -29,7 +60,11 @@ export default function Header(props) {
         </Nav>
       </div>
       <Flex>
-        <Login>Login</Login>
+        {!userName ? (
+          <Login onClick={handleAuth}>Login</Login>
+        ) : (
+          <UserImg src={userPhoto} alt={userName} />
+        )}
         <MobileMenuButton onClick={() => setOpen(!open)}>Menu</MobileMenuButton>
       </Flex>
     </StyledHeader>
@@ -180,4 +215,10 @@ const MobileMenuButton = styled.button`
   @media (min-width: 951px) {
     display: none;
   }
+`;
+
+const UserImg = styled.img`
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 `;
