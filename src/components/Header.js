@@ -99,7 +99,7 @@ const StyledHeader = styled.header`
   padding: 10px 35px;
   box-sizing: border-box;
   letter-spacing: 2px;
-  z-index: 10;
+  z-index: 20;
 
   @media (max-width: 950px) {
     padding: 10px 15px;
