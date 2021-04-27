@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import ImageSlider from './ImageSlider';
+import Viewers from './Viewers';
 
 export default function Home(props) {
   const { content } = props;
@@ -8,6 +10,7 @@ export default function Home(props) {
   return (
     <Container backgroundImage={content.home.images.background.src}>
       <ImageSlider />
+      <Viewers />
     </Container>
   );
 }
