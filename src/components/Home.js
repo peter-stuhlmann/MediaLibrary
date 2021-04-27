@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ImageSlider from './ImageSlider';
+import Recommends from './Recommends';
 import Viewers from './Viewers';
 
 export default function Home(props) {
@@ -11,6 +12,7 @@ export default function Home(props) {
     <Container backgroundImage={content.home.images.background.src}>
       <ImageSlider />
       <Viewers />
+      <Recommends title={content.home.recommends} />
     </Container>
   );
 }
