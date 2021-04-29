@@ -2,17 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ImageSlider from './ImageSlider';
-import Recommends from './Recommends';
 import Viewers from './Viewers';
+import Movies from './Movies';
+
+import categories from '../data/categories';
+import useFetch from '../hooks/useFetch';
 
 export default function Home(props) {
   const { content } = props;
+
+  const movies = useFetch(`${process.env.REACT_APP_MOVIES_API}/movies`);
 
   return (
     <Container backgroundImage={content.home.images.background.src}>
       <ImageSlider />
       <Viewers />
-      <Recommends title={content.home.recommends} />
+      {categories.map((category) => {
+        const type = movies?.response?.filter(
+          (movie) => movie.type === category.type
+        );
+        return (
+          <Movies key={category.title} title={category.title} movies={type} />
+        );
+      })}
     </Container>
   );
 }

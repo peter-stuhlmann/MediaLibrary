@@ -2,19 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import recommends from '../data/recommends';
-
-export default function Recommends(props) {
-  const { title } = props;
+export default function Movies(props) {
+  const { title, movies } = props;
 
   return (
     <Container>
       <h3>{title}</h3>
       <List>
-        {recommends.map((recommend) => (
+        {movies?.map((movie) => (
           <ListItem>
-            <Link to={recommend.href}>
-              <img src={recommend.image} alt={recommend.title} />
+            <Link to={movie.href}>
+              {movies ? (
+                <img src={movie.cardImg} alt={movie.title} />
+              ) : (
+                <img src="" alt="" />
+              )}
             </Link>
           </ListItem>
         ))}
