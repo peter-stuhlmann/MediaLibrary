@@ -49,6 +49,10 @@ const Container = styled.div`
     flex: 0 0 calc((100% - (25px * ${viewers.length - 1})) / ${viewers.length});
     margin-right: 25px;
     margin-bottom: 25px;
+
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
   }
 `;
 
