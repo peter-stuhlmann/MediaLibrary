@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 
 import useFetch from '../hooks/useFetch';
+import durationCompiler from '../helpers/durationCompiler';
 import { PlayIcon } from '../assets/icons';
 
 export default function Detail() {
@@ -35,7 +36,9 @@ export default function Detail() {
       </Control>
       <MetaData>
         {movie.response.year && <span>{movie.response.year}</span>}
-        {movie.response.duration && <span>{movie.response.duration}</span>}
+        {movie.response.duration && (
+          <span>{durationCompiler(movie.response.duration)}</span>
+        )}
         {movie.response.seasons && <span>{movie.response.seasons}</span>}
         {movie.response.genre && <span>{movie.response.genre.join(', ')}</span>}
       </MetaData>
