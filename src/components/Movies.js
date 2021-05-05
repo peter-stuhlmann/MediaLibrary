@@ -34,8 +34,8 @@ export default function Movies(props) {
       <h3>{title}</h3>
       <Carousel {...settings}>
         {movies?.map((movie) => (
-          <ListItem>
-            <Link to={movie.href}>
+          <ListItem key={movie.title}>
+            <Link to={'/movies/' + movie.href}>
               {movies ? (
                 <img src={movie.cardImg} alt={movie.title} />
               ) : (
