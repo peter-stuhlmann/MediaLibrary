@@ -1,11 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
-import OpenSansRegular from '../assets/fonts/open-sans/open-sans-regular.ttf';
+import AvenirRoman from '../assets/fonts/avenir/avenir-roman.otf';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
-    font-family: 'Open Sans';
-    src: url(${OpenSansRegular}) format("truetype");
+    font-family: 'Avenir-Roman';
+    src: url(${AvenirRoman}) format("opentype");;
     font-weight: 400;
   }
 
@@ -17,9 +17,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: rgb(25, 30, 40);
     color: #fff;
     font-size: 16px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Avenir-Roman', sans-serif;
     line-height: 1.5;
     margin: 0;
+    user-select: none;
   }
 `;
 
