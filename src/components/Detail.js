@@ -65,6 +65,16 @@ const Background = styled.div`
 
   img {
     width: 100vw;
+    animation: fadein ease-in 0.5s;
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   }
 
   div {
